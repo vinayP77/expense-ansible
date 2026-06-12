@@ -4,5 +4,5 @@
   taks:
   - name: install mysql server
     ansible.builtin.package:
-    name: mysqlsever
-    state: installed
+     name: mysqlsever
+     state: installed
