@@ -21,7 +21,7 @@
     community.mysql.mysql_info:
      login_user: root
      login_password: ExpenseApp@1
-     login host: mysql.vinaydevops.fun
+     login_host: mysql.vinaydevops.fun
     register: mysql_info
 
   - name: print the output
