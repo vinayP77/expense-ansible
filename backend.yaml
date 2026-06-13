@@ -52,12 +52,19 @@
       name: PyMySQL
       executable: pip3.9
 
-  - name: import mysql data
+  - name: create database
     community.mysql.mysql_db:
-     state: import
-     name: all
+     name: expense
+     state: present
      login_user: root
      login_password: ExpenseApp@1
      login_host: mysql.vinaydevops.fun
-     target: /app/schema/backend.sql
 
+  - name: import mysql data
+    community.mysql.mysql_db:
+     name: expense
+     state: import
+     target: /app/schema/backend.sql
+     login_user: root
+     login_password: ExpenseApp@1
+     login_host: mysql.vinaydevops.fun
