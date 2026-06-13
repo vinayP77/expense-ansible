@@ -8,10 +8,14 @@
   - name:  enable nodejs 20
     ansible.builtin.command: dnf module enable nodejs:20 -y
 
+# we need to install scheme of mysql 
   - name: install nodejs
     ansible.builtin.package:
-     name: nodejs
+     name: "{{item}}"
      state: present 
+    loop:
+    - nodejs
+    - mysql
 
   - name: create expense user
     ansible.builtin.user:
@@ -37,8 +41,23 @@
     community.general.npm:
       path: /app
 
-    # ansible copy file  
+    # ansible copy file  contol mission or not remote mission 
   - name: copy backend service
     ansible.builtin.copy:
      src: backend.service
      dest: /etc/systemd/system/backend.service
+
+  - name: install pthyon libs
+    ansible.builtin.pip:
+      name: PyMySQL
+      executable: pip3.9
+
+  - name: import mysql data
+    community.mysql.mysql_db:
+     state: import
+     name: all
+     login_user: root
+     login_password: ExpenseApp@1
+     login_host: mysql.vinaydevops.fun
+     target: /app/schema/backend.sql
+
