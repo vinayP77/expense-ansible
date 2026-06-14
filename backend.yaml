@@ -49,8 +49,11 @@
 
   - name: install pthyon libs
     ansible.builtin.pip:
-      name: PyMySQL
+      name: "{{ item }}"
       executable: pip3.9
+    loop:
+    - cryptography
+    - PyMySQL  
 
   - name: import mysql data
     community.mysql.mysql_db:
@@ -60,6 +63,6 @@
      login_password: ExpenseApp@1
      login_host: mysql.vinaydevops.fun 
      target: /app/schema/backend.sql 
-     
+
 
 
